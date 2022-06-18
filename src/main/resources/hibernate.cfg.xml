@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/tracker</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/hibernate</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">1234</property>
         <property name="hibernate.connection.pool_size">1</property>
@@ -19,6 +19,8 @@
 
 
         <mapping class="ru.job4j.hibernate.hql.Candidate" />
-<!--        <mapping class="ru.job4j.config.Car" />-->
+        <mapping class="ru.job4j.hibernate.entity.CarBrand"/>
+        <mapping class="ru.job4j.hibernate.entity.Model"/>
+
     </session-factory>
 </hibernate-configuration>

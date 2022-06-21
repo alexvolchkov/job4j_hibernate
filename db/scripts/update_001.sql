@@ -25,3 +25,14 @@ CREATE TABLE if not exists authors (
   name VARCHAR
 );
 
+CREATE TABLE if not exists l_car_brands (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR
+);
+
+CREATE TABLE if not exists l_models (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  car_brand_id INTEGER REFERENCES l_car_brands (id)
+);
+

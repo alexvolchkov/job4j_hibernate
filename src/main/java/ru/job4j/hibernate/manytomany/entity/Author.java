@@ -1,25 +1,21 @@
-package ru.job4j.hibernate.entity;
+package ru.job4j.hibernate.manytomany.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "car_brands")
-public class CarBrand {
+@Table(name = "authors")
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Model> models = new ArrayList<>();
 
-    public CarBrand() {
-    }
-
-    public CarBrand(String name) {
-        this.name = name;
+    public static Author of(String name) {
+        Author author = new Author();
+        author.name = name;
+        return author;
     }
 
     public int getId() {
@@ -38,14 +34,6 @@ public class CarBrand {
         this.name = name;
     }
 
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public void addModel(Model model) {
-        this.models.add(model);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -54,18 +42,18 @@ public class CarBrand {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CarBrand carBrand = (CarBrand) o;
-        return id == carBrand.id;
+        Author author = (Author) o;
+        return id == author.id && Objects.equals(name, author.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
-        return "CarBrand{"
+        return "Author{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + '}';

@@ -15,3 +15,13 @@ CREATE TABLE if not exists models (
   name VARCHAR
 );
 
+CREATE TABLE if not exists books (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR
+);
+
+CREATE TABLE if not exists authors (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR
+);
+

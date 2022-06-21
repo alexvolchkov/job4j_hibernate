@@ -19,8 +19,10 @@
 
 
         <mapping class="ru.job4j.hibernate.hql.Candidate" />
-        <mapping class="ru.job4j.hibernate.entity.CarBrand"/>
-        <mapping class="ru.job4j.hibernate.entity.Model"/>
+        <mapping class="ru.job4j.hibernate.onetomany.entity.CarBrand"/>
+        <mapping class="ru.job4j.hibernate.onetomany.entity.Model"/>
+        <mapping class="ru.job4j.hibernate.manytomany.entity.Book"/>
+        <mapping class="ru.job4j.hibernate.manytomany.entity.Author"/>
 
     </session-factory>
 </hibernate-configuration>

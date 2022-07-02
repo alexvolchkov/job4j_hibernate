@@ -18,13 +18,15 @@
         <property name="use_sql_comments">true</property>
 
 
-        <mapping class="ru.job4j.hibernate.hql.Candidate" />
+        <mapping class="ru.job4j.hibernate.hql.entity.Candidate" />
         <mapping class="ru.job4j.hibernate.onetomany.entity.CarBrand"/>
         <mapping class="ru.job4j.hibernate.onetomany.entity.Model"/>
         <mapping class="ru.job4j.hibernate.manytomany.entity.Book"/>
         <mapping class="ru.job4j.hibernate.manytomany.entity.Author"/>
         <mapping class="ru.job4j.hibernate.lazy.entity.LazyModel"/>
         <mapping class="ru.job4j.hibernate.lazy.entity.LazyCarBrand"/>
+        <mapping class="ru.job4j.hibernate.hql.entity.DbVacancies"/>
+        <mapping class="ru.job4j.hibernate.hql.entity.Vacancy"/>
 
     </session-factory>
 </hibernate-configuration>

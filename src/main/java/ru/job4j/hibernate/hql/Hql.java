@@ -6,6 +6,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import ru.job4j.hibernate.hql.entity.Candidate;
+import ru.job4j.hibernate.hql.entity.DbVacancies;
+import ru.job4j.hibernate.hql.entity.Vacancy;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -16,6 +19,17 @@ public class Hql {
                 .configure().build();
         try {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            Session session = sf.openSession();
+            session.beginTransaction();
+            Candidate candidate = Candidate.of("test fetch", 5, 100);
+            Vacancy vacancy = Vacancy.of("Vacancy", "description");
+            DbVacancies dbVacancies = new DbVacancies();
+            dbVacancies.add(vacancy);
+            candidate.setDbVacancies(dbVacancies);
+            session.save(candidate);
+            session.getTransaction().commit();
+            session.close();
+            loadFetchCandidate(candidate.getId(), sf);
             /*
             Session session = sf.openSession();
             session.beginTransaction();
@@ -27,7 +41,7 @@ public class Hql {
             session.save(candidate3);
             session.getTransaction().commit();
             session.close();
-             */
+
             System.out.println("Метод findAll");
             for (Candidate candidate : findAll(sf)) {
                 System.out.println(candidate);
@@ -58,6 +72,7 @@ public class Hql {
             System.out.println("После удаления");
             System.out.println(findById(2, sf));
             System.out.println("------------------------------");
+             */
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
@@ -119,4 +134,18 @@ public class Hql {
         session.close();
     }
 
+    public static void loadFetchCandidate(int id, SessionFactory sf) {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        Candidate rsl = session.createQuery(
+                "select distinct c from Candidate c "
+                        + "join fetch c.dbVacancies db "
+                        + "join fetch db.vacancies v "
+                        + "where c.id = :fId", Candidate.class
+        ).setParameter("fId", id).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        System.out.println("ee");
+        System.out.println(rsl);
+    }
 }

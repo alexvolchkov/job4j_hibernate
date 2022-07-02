@@ -1,4 +1,4 @@
-package ru.job4j.hibernate.hql;
+package ru.job4j.hibernate.hql.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,6 +16,10 @@ public class Candidate {
     private int experience;
 
     private double salary;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "vacancies_id")
+    private DbVacancies dbVacancies;
 
     public static Candidate of(String name, int experience, double salary) {
         Candidate candidate = new Candidate();
@@ -57,6 +61,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public DbVacancies getDbVacancies() {
+        return dbVacancies;
+    }
+
+    public void setDbVacancies(DbVacancies dbVacancies) {
+        this.dbVacancies = dbVacancies;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -81,6 +93,7 @@ public class Candidate {
                 + ", name='" + name + '\''
                 + ", experience=" + experience
                 + ", salary=" + salary
+                + ", dbVacancies=" + dbVacancies
                 + '}';
     }
 }

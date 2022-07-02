@@ -1,8 +1,20 @@
+CREATE TABLE if not exists db_vacancies (
+  id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE if not exists vacancy (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  description VARCHAR,
+  vacancies_id int not null unique references db_vacancies(id)
+);
+
 CREATE TABLE if not exists candidates (
   id SERIAL PRIMARY KEY,
   name VARCHAR,
   experience int,
-  salary decimal
+  salary decimal,
+  vacancies_id int not null unique references db_vacancies(id)
 );
 
 CREATE TABLE if not exists car_brands (
